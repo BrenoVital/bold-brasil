@@ -1,9 +1,9 @@
 import {
-  AppstoreOutlined,
-  CustomerServiceOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  ShopOutlined,
+  UsergroupAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Badge, Button, Col, Layout, Space, theme } from "antd";
@@ -22,8 +22,8 @@ export default function MainLayout() {
   // Rotas principais
   const routes: any = {
     "/": { name: "Início", icon: <HomeOutlined /> },
-    "/atendimento": { name: "Atendimento", icon: <CustomerServiceOutlined /> },
-    "/aplicativos": { name: "Aplicativos", icon: <AppstoreOutlined /> },
+    "/parceiros": { name: "Parceiros", icon: <UsergroupAddOutlined /> },
+    "/empresas": { name: "Empresas", icon: <ShopOutlined /> },
   };
 
   return (

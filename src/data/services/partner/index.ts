@@ -4,7 +4,7 @@ import { remove } from "./remove";
 import { update } from "./update";
 import { getById } from "./getById";
 
-export const companyService = {
+export const partnerService = {
   getAll,
   getById,
   create,

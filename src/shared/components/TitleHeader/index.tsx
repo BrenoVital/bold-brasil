@@ -1,20 +1,19 @@
-import { Col, Typography, Divider } from "antd";
+import { Typography, Button, Row } from "antd";
+import { useNavigate } from "react-router-dom";
 
 interface ITitleHeaderProps {
   title: string;
   divider?: boolean;
 }
-export default function TitleHeader({ title, divider }: ITitleHeaderProps) {
+export default function TitleHeader({ title }: ITitleHeaderProps) {
+  const navigate = useNavigate();
+
   return (
-    <Col span={24}>
+    <Row justify="space-between" align="middle">
       <Typography.Title level={3}>{title}</Typography.Title>
-      {divider && (
-        <Divider
-          style={{
-            margin: "10px 0",
-          }}
-        />
-      )}
-    </Col>
+      <Button type="primary" onClick={() => navigate("criar")}>
+        Cadastrar parceiro
+      </Button>
+    </Row>
   );
 }
