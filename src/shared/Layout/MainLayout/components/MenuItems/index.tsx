@@ -1,8 +1,7 @@
 import { Menu } from "antd";
-import { RouteConfig } from "../../../../../data/types/Routes";
 import { useNavigate } from "react-router-dom";
 
-export default function MenuItems({ routes }: { routes: RouteConfig }) {
+export default function MenuItems({ routes }: any) {
   const navigate = useNavigate();
   const menuItems = Object.keys(routes).map((path) => ({
     key: path,

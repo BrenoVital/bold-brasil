@@ -1,43 +1,28 @@
 import axios from "axios";
-import { useAuthStore } from "../../store/authStore";
 
-export const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}`,
+export const apiPartners = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_URL_PARTNERS}`,
 });
 
-api.interceptors.request.use(
-  (config) => {
-    const auth = useAuthStore.getState();
-    const token = auth.auth?.token.accessToken;
+export const apiCompanies = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_URL_COMPANIES}`,
+});
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    const auth = useAuthStore.getState();
-    if (error.response.status === 401) {
-      auth.logout();
-    }
-    return Promise.reject(error);
+const handleResponseError = (error: any) => {
+  if (
+    error.response &&
+    (error.response.status === 404 || error.response.status === 500)
+  ) {
+    console.error("Erro de API:", error.response.status);
   }
+  return Promise.reject(error);
+};
+
+apiPartners.interceptors.response.use(
+  (response) => response,
+  handleResponseError
 );
-
-api.interceptors.response.use(
-  (response) => {
-    if (response.status === 401 || response.status === 402) {
-      const auth = useAuthStore.getState();
-      auth.logout();
-    }
-
-    return response;
-  },
-  (error) => {
-    if (error.response.status === 401 || error.response.status === 402) {
-      const auth = useAuthStore.getState();
-      auth.logout();
-    }
-    return Promise.reject(error);
-  }
+apiCompanies.interceptors.response.use(
+  (response) => response,
+  handleResponseError
 );

@@ -6,20 +6,10 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import {
-  Avatar,
-  Badge,
-  Breadcrumb,
-  Button,
-  Col,
-  Layout,
-  Space,
-  theme,
-} from "antd";
+import { Avatar, Badge, Button, Col, Layout, Space, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import { RouteConfig } from "../../../data/types/Routes";
+import { Outlet } from "react-router-dom";
 import MenuItems from "./components/MenuItems";
 
 export default function MainLayout() {
@@ -28,31 +18,13 @@ export default function MainLayout() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const location = useLocation();
 
   // Rotas principais
-  const routes: RouteConfig = {
+  const routes: any = {
     "/": { name: "Início", icon: <HomeOutlined /> },
     "/atendimento": { name: "Atendimento", icon: <CustomerServiceOutlined /> },
     "/aplicativos": { name: "Aplicativos", icon: <AppstoreOutlined /> },
   };
-  const pathSnippets = location.pathname.split("/").filter((i) => i);
-  const breadcrumbItems = [
-    {
-      title: <a href="/">Início</a>,
-      key: "home",
-    },
-    ...pathSnippets.map((_, index) => {
-      const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
-      const routeName =
-        routes[`/${pathSnippets.slice(0, index + 1).join("/")}`]?.name;
-
-      return {
-        title: routeName ? <a href={url}>{routeName}</a> : pathSnippets[index],
-        key: url,
-      };
-    }),
-  ];
 
   return (
     <Layout
@@ -94,10 +66,6 @@ export default function MainLayout() {
                 width: 64,
                 height: 64,
               }}
-            />
-            <Breadcrumb
-              items={breadcrumbItems}
-              style={{ margin: "0 16px", fontSize: 18 }}
             />
           </Col>
           <Col flex="0 1 55px">
