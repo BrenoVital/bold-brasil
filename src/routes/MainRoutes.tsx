@@ -8,8 +8,11 @@ import NewCompany from "../ExternalCompany/pages/NewCompany";
 import EditCompany from "../ExternalCompany/pages/EditCompany";
 import Partner from "../Partner/pages";
 import ExternalCompany from "../ExternalCompany/pages";
+import NotFound from "../pages/NotFound";
+import { useAuthStore } from "../shared/store/authStore";
 
 export default function MainRoutes() {
+  const { isAuthenticated } = useAuthStore();
   const routes = [
     {
       id: "1",
@@ -50,12 +53,16 @@ export default function MainRoutes() {
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route element={<MainLayout />}>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-      </Route>
+      {isAuthenticated ? (
+        <Route element={<MainLayout />}>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Route>
+      ) : (
+        <Route path="/" element={<Login />} />
+      )}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
