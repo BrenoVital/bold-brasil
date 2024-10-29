@@ -1,6 +1,6 @@
 import "antd/dist/reset.css";
 import "@fontsource/nunito";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, App as AntdApp } from "antd";
 import ptBR from "antd/lib/locale/pt_BR";
 import { BrowserRouter } from "react-router-dom";
 import MainRoutes from "./routes/MainRoutes";
@@ -13,14 +13,16 @@ export default function App() {
     <HelmetProvider>
       <ConfigProvider
         locale={ptBR}
-        theme={{ token: { fontFamily: "Nunito, sans-serif" ,} }}
+        theme={{ token: { fontFamily: "Nunito, sans-serif" } }}
       >
-        <Helmet titleTemplate="%s | Template AntDesign" />
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <MainRoutes />
-          </BrowserRouter>
-        </QueryClientProvider>
+        <AntdApp>
+          <Helmet titleTemplate="%s | Sistema parceiros" />
+          <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+              <MainRoutes />
+            </BrowserRouter>
+          </QueryClientProvider>
+        </AntdApp>
       </ConfigProvider>
     </HelmetProvider>
   );

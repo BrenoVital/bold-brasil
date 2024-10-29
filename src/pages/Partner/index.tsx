@@ -8,10 +8,11 @@ import {
 } from "@ant-design/icons";
 import TitleHeader from "../../shared/components/TitleHeader";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { partnerService } from "../../data/services/partner";
 import { useState } from "react";
 import dayjs from "dayjs";
+import { openNotification } from "../../shared/components/Notifications";
 
 export default function Partner() {
   const navigate = useNavigate();
@@ -31,12 +32,22 @@ export default function Partner() {
     queryFn: () => partnerService.getAll(),
   });
 
-  const handleEdit = (record: any) => {
-    navigate(`editar/${record.key}`);
+  const handleEdit = (id: string) => {
+    navigate(`editar/${id}`);
   };
 
-  const handleDelete = (record: any) => {
-    console.log("Delete", record);
+  const partner = useMutation({
+    mutationFn: (id: string) => partnerService.remove(id),
+    onSuccess() {
+      openNotification("success", "Parceiro excluído com sucesso");
+    },
+    onError() {
+      openNotification("error", "Erro ao excluir parceiro");
+    },
+  });
+
+  const handleDelete = (id: string) => {
+    partner.mutate(id);
   };
 
   const columns = [
@@ -82,13 +93,13 @@ export default function Partner() {
                 key: "edit",
                 label: "Editar",
                 icon: <EditOutlined />,
-                onClick: () => handleEdit(record),
+                onClick: () => handleEdit(record.id),
               },
               {
                 key: "delete",
                 label: "Excluir",
                 icon: <DeleteOutlined />,
-                onClick: () => handleDelete(record),
+                onClick: () => handleDelete(record.id),
               },
               {
                 key: "view",
@@ -108,11 +119,11 @@ export default function Partner() {
 
   return (
     <Col span={24}>
-      <TitleHeader title="Parceiros cadastrados" />
+      <TitleHeader title="Parceiros cadastrados" newButton route="criar" />
       <CustomTable columns={columns} data={data} />
       <Modal
         title="Detalhes do Parceiro"
-        visible={isModalOpen}
+        open={isModalOpen}
         onCancel={closeModal}
         footer={[
           <Button key="close" onClick={closeModal}>
