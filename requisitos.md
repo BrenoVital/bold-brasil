@@ -3,7 +3,6 @@ Sobre o sistema:
 O intuito é que possamos cadastrar os parceiros que temos integrados em nossas aplicações, com informações dele, onde usamos e quais clientes atendemos.
 Informações de desenvolvimento:
 Deverá ser implementado um projeto com micro front-ends separadas por domínios ou contextos de uso, permitindo assim, que diferentes times cuidem dessas funcionalidades de forma independente.
-Sugiro que use frameworks diferentes para se destacar, mas um obrigatoriamente tem que ser em Angular na versão 15.
 Preparar um readme.md no repo para que qualquer desenvolvedor consiga subir o projeto e ficando claro que pode usar um módulo específico com sua tecnologia.
 Acrescentar no readme.md uma lista de tudo que foi feito e do que precisa feito no projeto, mesmo que não seja feito nesse momento (TODO / TASKS) com estimativa de tempo.
 Preparar projeto em contêiner para que o time de infra consiga subir num cloud, exemplo ECS da AWS.

@@ -2,12 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import MainLayout from "../shared/Layout/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import ExternalCompany from "../pages/ExternalCompany";
-import Partner from "../pages/Partner";
-import NewPartner from "../pages/Partner/NewPartner";
-import EditPartner from "../pages/Partner/EditPartner";
-import NewCompany from "../pages/ExternalCompany/NewCompany";
-import EditCompany from "../pages/ExternalCompany/EditCompany";
+import NewPartner from "../Partner/pages/NewPartner";
+import EditPartner from "../Partner/pages/EditPartner";
+import NewCompany from "../ExternalCompany/pages/NewCompany";
+import EditCompany from "../ExternalCompany/pages/EditCompany";
+import Partner from "../Partner/pages";
+import ExternalCompany from "../ExternalCompany/pages";
 
 export default function MainRoutes() {
   const routes = [
