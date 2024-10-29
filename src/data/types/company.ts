@@ -1,5 +1,5 @@
 export type TCompany = {
-  id?: number;
+  id?: string;
   companyName: string;
   collaboratorsCount: number;
   isActive: boolean;

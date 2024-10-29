@@ -6,6 +6,8 @@ import ExternalCompany from "../pages/ExternalCompany";
 import Partner from "../pages/Partner";
 import NewPartner from "../pages/Partner/NewPartner";
 import EditPartner from "../pages/Partner/EditPartner";
+import NewCompany from "../pages/ExternalCompany/NewCompany";
+import EditCompany from "../pages/ExternalCompany/EditCompany";
 
 export default function MainRoutes() {
   const routes = [
@@ -30,9 +32,19 @@ export default function MainRoutes() {
       element: <EditPartner />,
     },
     {
-      id: "00000000",
+      id: "5",
       path: "/empresas",
       element: <ExternalCompany />,
+    },
+    {
+      id: "6",
+      path: "/empresas/criar",
+      element: <NewCompany />,
+    },
+    {
+      id: "7",
+      path: "/empresas/editar/:id",
+      element: <EditCompany />,
     },
   ];
 

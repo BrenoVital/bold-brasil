@@ -39,7 +39,11 @@ export default function NewPartner() {
 
   return (
     <Col span={24}>
-      <TitleHeader title="Novo Parceiro" buttonBack />
+      <TitleHeader
+        title="Novo Parceiro"
+        buttonBack
+        titleButon="Cadastrar Parceiro"
+      />
       <FormPartner form={form} />
       <Button type="primary" onClick={form.handleSubmit(onSubmit)}>
         Salvar

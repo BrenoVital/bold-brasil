@@ -119,7 +119,12 @@ export default function Partner() {
 
   return (
     <Col span={24}>
-      <TitleHeader title="Parceiros cadastrados" newButton route="criar" />
+      <TitleHeader
+        title="Parceiros cadastrados"
+        newButton
+        route="criar"
+        titleButon="Cadastrar Parceiro"
+      />
       <CustomTable columns={columns} data={data} />
       <Modal
         title="Detalhes do Parceiro"

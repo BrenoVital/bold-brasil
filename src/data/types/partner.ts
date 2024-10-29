@@ -1,5 +1,5 @@
 export type TPartner = {
-  id?: number;
+  id?: string;
   createdAt: string;
   name: string;
   description: string;

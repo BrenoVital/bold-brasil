@@ -7,12 +7,14 @@ interface ITitleHeaderProps {
   title: string;
   newButton?: boolean;
   route?: string;
+  titleButon?: string;
 }
 export default function TitleHeader({
   buttonBack,
   title,
   newButton,
   route,
+  titleButon,
 }: ITitleHeaderProps) {
   const navigate = useNavigate();
 
@@ -36,7 +38,7 @@ export default function TitleHeader({
       </Space>
       {newButton && (
         <Button type="default" onClick={() => navigate(route || "/")}>
-          Cadastrar parceiro
+          {titleButon}
         </Button>
       )}
     </Row>
