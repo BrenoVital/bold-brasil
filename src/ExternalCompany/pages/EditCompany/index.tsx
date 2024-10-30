@@ -21,7 +21,7 @@ export default function EditCompany() {
     mutationFn: (data: TCompany) =>
       companyService.update({ id: id!, company: data }),
     onSuccess: () => {
-      openNotification("success", "Empresa atualizado com sucesso");
+      openNotification("success", "Empresa atualizada com sucesso");
       setTimeout(() => {
         window.location.href = "/empresas";
       }, 1000);

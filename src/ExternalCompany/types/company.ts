@@ -1,7 +1,7 @@
 export type TCompany = {
   id?: string;
   companyName: string;
-  collaboratorsCount: number;
+  collaboratorsCount: string;
   isActive: boolean;
   lastSubmit: string;
   createdAt: string;

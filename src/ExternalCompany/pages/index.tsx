@@ -20,11 +20,11 @@ export default function ExternalCompany() {
   const company = useMutation({
     mutationFn: (id: string) => companyService.remove(id),
     onSuccess() {
-      openNotification("success", "Parceiro excluído com sucesso");
+      openNotification("success", "Empresa excluída com sucesso");
       refetch();
     },
     onError() {
-      openNotification("error", "Erro ao excluir parceiro");
+      openNotification("error", "Erro ao excluir empresa");
     },
   });
 
@@ -57,6 +57,7 @@ export default function ExternalCompany() {
       title: "Último envio",
       dataIndex: "lastSubmit",
       key: "lastSubmit",
+      render: (date: string) => dayjs(date).format("DD/MM/YYYY"),
     },
     {
       title: "Criado em",

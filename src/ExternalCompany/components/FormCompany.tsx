@@ -9,20 +9,22 @@ interface ICompanyForm {
 
 export default function FormCompany({ form }: ICompanyForm) {
   return (
-    <Form
-      layout="vertical"
-      onFinish={form.handleSubmit((data) => console.log(data))}
-    >
+    <Form layout="vertical">
       <Form.Item label="Data de Criação">
         <Controller
           name="createdAt"
           control={form.control}
-          render={({ field }) => (
-            <DatePicker
-              value={field.value ? dayjs(field.value) : null}
-              format="DD/MM/YYYY"
-              onChange={(date) => field.onChange(date)}
-            />
+          render={({ field, fieldState }) => (
+            <>
+              <DatePicker
+                value={dayjs(field.value) || null}
+                format="DD/MM/YYYY"
+                onChange={(date) => field.onChange(date)}
+              />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
+            </>
           )}
         />
       </Form.Item>
@@ -34,6 +36,10 @@ export default function FormCompany({ form }: ICompanyForm) {
           render={({ field, fieldState }) => (
             <>
               <Input
+                count={{
+                  show: true,
+                  max: 20,
+                }}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite o nome da empresa"
@@ -49,13 +55,18 @@ export default function FormCompany({ form }: ICompanyForm) {
         <Controller
           name="collaboratorsCount"
           control={form.control}
-          render={({ field }) => (
-            <Input
-              type="number"
-              value={field.value}
-              onChange={field.onChange}
-              placeholder="Digite o número de colaboradores"
-            />
+          render={({ field, fieldState }) => (
+            <>
+              <Input
+                type="number"
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Digite o número de colaboradores"
+              />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
+            </>
           )}
         />
       </Form.Item>
@@ -64,12 +75,14 @@ export default function FormCompany({ form }: ICompanyForm) {
           name="isActive"
           control={form.control}
           render={({ field }) => (
-            <Checkbox
-              checked={field.value}
-              onChange={(e) => field.onChange(e.target.checked)}
-            >
-              Empresa Ativa
-            </Checkbox>
+            <>
+              <Checkbox
+                checked={field.value}
+                onChange={(e) => field.onChange(e.target.checked)}
+              >
+                Empresa Ativa
+              </Checkbox>
+            </>
           )}
         />
       </Form.Item>
@@ -77,12 +90,19 @@ export default function FormCompany({ form }: ICompanyForm) {
         <Controller
           name="lastSubmit"
           control={form.control}
-          render={({ field }) => (
-            <DatePicker
-              value={field.value ? dayjs(field.value) : null}
-              format="DD/MM/YYYY"
-              onChange={(date) => field.onChange(date)}
-            />
+          render={({ field, fieldState }) => (
+            <>
+              <DatePicker
+                value={dayjs(field.value) || null}
+                format="DD/MM/YYYY"
+                onChange={(date) =>
+                  field.onChange(date ? date.format("YYYY-MM-DD") : "")
+                }
+              />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
+            </>
           )}
         />
       </Form.Item>

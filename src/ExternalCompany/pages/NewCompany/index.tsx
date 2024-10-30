@@ -12,11 +12,10 @@ import { companyService } from "../../services";
 const schemaCreateCompany = zod.object({
   companyName: zod.string().min(3, "Nome deve ter no mínimo 3 caracteres"),
   collaboratorsCount: zod
-    .number()
+    .string()
     .min(1, "Número de colaboradores deve ser maior que 0"),
-  isActive: zod.boolean(),
+  isActive: zod.boolean().optional(),
   lastSubmit: zod.string().optional(),
-  createdAt: zod.string().optional(),
 });
 
 export default function NewCompany() {
@@ -27,15 +26,20 @@ export default function NewCompany() {
   const createCompany = useMutation({
     mutationFn: (data: TCompany) => companyService.create({ company: data }),
     onSuccess: () => {
-      openNotification("success", "Parceiro criado com sucesso");
+      openNotification("success", "Empresa cadastrada com sucesso");
+      form.reset();
     },
     onError: () => {
-      openNotification("error", "Erro ao criar parceiro");
+      openNotification("error", "Erro ao cadastrar empresa");
     },
   });
 
   const onSubmit = (data: TCompany) => {
-    console.log(data);
+    const result = schemaCreateCompany.safeParse(data);
+    if (!result.success) {
+      console.error(result.error);
+      return;
+    }
     createCompany.mutate(data);
   };
 

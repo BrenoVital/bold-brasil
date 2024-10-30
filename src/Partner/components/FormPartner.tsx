@@ -1,7 +1,8 @@
-import { Form, Input, DatePicker, List } from "antd";
+import { Form, Input, DatePicker, List, Button } from "antd";
 import { Controller, UseFormReturn } from "react-hook-form";
 import dayjs from "dayjs";
 import { TPartner } from "../types/partner";
+import { DeleteOutlined } from "@ant-design/icons";
 
 interface IPartnerForm {
   form: UseFormReturn<TPartner, any, undefined>;
@@ -32,6 +33,10 @@ export default function PartnerForm({ form }: IPartnerForm) {
           render={({ field, fieldState }) => (
             <>
               <Input
+                count={{
+                  show: true,
+                  max: 20,
+                }}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite o nome"
@@ -48,13 +53,22 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="description"
           control={form.control}
-          render={({ field }) => (
-            <Input.TextArea
-              value={field.value}
-              onChange={field.onChange}
-              rows={4}
-              placeholder="Digite a descrição"
-            />
+          render={({ field, fieldState }) => (
+            <>
+              <Input.TextArea
+                count={{
+                  show: true,
+                  max: 80,
+                }}
+                value={field.value}
+                onChange={field.onChange}
+                rows={2}
+                placeholder="Digite a descrição"
+              />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
+            </>
           )}
         />
       </Form.Item>
@@ -63,12 +77,18 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="repositoryGit"
           control={form.control}
-          render={({ field }) => (
-            <Input
-              value={field.value}
-              onChange={field.onChange}
-              placeholder="Digite a URL do repositório"
-            />
+          render={({ field, fieldState }) => (
+            <>
+              <Input
+                addonBefore="URL"
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Digite a URL do repositório"
+              />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
+            </>
           )}
         />
       </Form.Item>
@@ -77,12 +97,18 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="urlDoc"
           control={form.control}
-          render={({ field }) => (
-            <Input
-              value={field.value}
-              onChange={field.onChange}
-              placeholder="Digite a URL do documento"
-            />
+          render={({ field, fieldState }) => (
+            <>
+              <Input
+                addonBefore="URL"
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Digite a URL do documento"
+              />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
+            </>
           )}
         />
       </Form.Item>
@@ -91,10 +117,15 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="clients"
           control={form.control}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <>
               <Input
                 placeholder="Digite os IDs dos clientes, separados por vírgula"
+                addonBefore="ID"
+                count={{
+                  show: true,
+                  max: 80,
+                }}
                 onChange={(e) => {
                   const values = e.target.value
                     .split(",")
@@ -102,11 +133,32 @@ export default function PartnerForm({ form }: IPartnerForm) {
                   field.onChange(values);
                 }}
               />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
               <List
                 size="small"
                 bordered
                 dataSource={form.getValues("clients")}
-                renderItem={(item) => <List.Item>{item}</List.Item>}
+                renderItem={(item, index) => (
+                  <List.Item
+                    actions={[
+                      <Button
+                        type="link"
+                        onClick={() => {
+                          const updatedClients = form
+                            .getValues("clients")
+                            .filter((_, i) => i !== index);
+                          field.onChange(updatedClients);
+                        }}
+                      >
+                        <DeleteOutlined />
+                      </Button>,
+                    ]}
+                  >
+                    {item}
+                  </List.Item>
+                )}
               />
             </>
           )}
@@ -117,10 +169,15 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="projects"
           control={form.control}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <>
               <Input
                 placeholder="Digite os IDs dos projetos, separados por vírgula"
+                addonBefore="ID"
+                count={{
+                  show: true,
+                  max: 80,
+                }}
                 onChange={(e) => {
                   const values = e.target.value
                     .split(",")
@@ -128,11 +185,32 @@ export default function PartnerForm({ form }: IPartnerForm) {
                   field.onChange(values);
                 }}
               />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
               <List
                 size="small"
                 bordered
                 dataSource={form.getValues("projects")}
-                renderItem={(item) => <List.Item>{item}</List.Item>}
+                renderItem={(item, index) => (
+                  <List.Item
+                    actions={[
+                      <Button
+                        type="link"
+                        onClick={() => {
+                          const updatedClients = form
+                            .getValues("projects")
+                            .filter((_, i) => i !== index);
+                          field.onChange(updatedClients);
+                        }}
+                      >
+                        <DeleteOutlined />
+                      </Button>,
+                    ]}
+                  >
+                    {item}
+                  </List.Item>
+                )}
               />
             </>
           )}
