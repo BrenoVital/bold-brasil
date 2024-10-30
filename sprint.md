@@ -2,8 +2,8 @@
 
 ## Estrutura do Projeto
 
-- [ ] Implementar projeto com micro frontends separados por domínios/contextos de uso, permitindo manutenção independente por diferentes times.
-- [ ] Preparar um `README.md` detalhado para que qualquer desenvolvedor consiga subir o projeto, explicando como usar módulos específicos com tecnologias diversas.
+- [x] Implementar projeto com micro frontends separados por domínios/contextos de uso, permitindo manutenção independente por diferentes times.
+- [x] Preparar um `README.md` detalhado para que qualquer desenvolvedor consiga subir o projeto, explicando como usar módulos específicos com tecnologias diversas.
 - [x] Adicionar lista no `README.md` com o que foi feito e o que ainda precisa ser implementado (TODO / TASKS), incluindo uma estimativa de tempo para cada tarefa.
 - [ ] Preparar o projeto em contêiner (Docker) para facilitar o deploy em cloud (exemplo: ECS da AWS).
 - [x] Configuração inicial do projeto em React com Vite
@@ -41,7 +41,7 @@
 - [x] **Listar Empresas Externas**: Tabela com paginação e ações de editar/excluir.
 - [x] **Excluir Empresa Externas**: Botão dentro da tabela para deletar empresa por id.
 - [ ] **Sobre a Aplicação**: Página explicando a estrutura do projeto, tecnologias utilizadas, propósito do sistema, etc.
-- [ ] **Sair**: Opção que redireciona para a tela de login.
+- [x] **Sair**: Opção que redireciona para a tela de login.
 
 ### Compartilhamento de Dados
 
@@ -67,5 +67,5 @@
 ## Melhorias Visuais
 
 - [ ] Adição de mensagens de erro na tela de login para credenciais inválidas.
-- [ ] Adição de mensagens de erro no retorno das requisições de parceiros.
-- [ ] Adição de mensagens de erro no retorno das requisições de empresas.
+- [x] Adição de mensagens de erro no retorno das requisições de parceiros.
+- [x] Adição de mensagens de erro no retorno das requisições de empresas.

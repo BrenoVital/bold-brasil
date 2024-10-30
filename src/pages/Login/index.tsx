@@ -3,6 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { TLogin } from "../../shared/types/login";
 import { useAuthStore } from "../../shared/store/authStore";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Login() {
   const form = useForm<TLogin>({});
@@ -12,9 +13,11 @@ export default function Login() {
     login(data.username, data.password);
   }
 
-  if (isAuthenticated) {
-    navigate("/empresas");
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <Form

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import MainLayout from "../shared/Layout/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -11,9 +11,17 @@ import ExternalCompany from "../ExternalCompany/pages";
 import NotFound from "../pages/NotFound";
 import { useAuthStore } from "../shared/store/authStore";
 import About from "../pages/About";
+import { useEffect } from "react";
 
 export default function MainRoutes() {
   const { isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
+
   const routes = [
     {
       id: "1",
@@ -57,18 +65,21 @@ export default function MainRoutes() {
     },
   ];
 
+  const notFoundRoute = {
+    path: "*",
+    element: <NotFound />,
+  };
+
   return (
     <Routes>
-      {isAuthenticated ? (
-        <Route element={<MainLayout />}>
-          {routes.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
-          ))}
-        </Route>
-      ) : (
-        <Route path="/" element={<Login />} />
-      )}
-      <Route path="*" element={<NotFound />} />
+      <Route path="/login" element={<Login />} />
+
+      <Route element={<MainLayout />}>
+        {routes.map((route) => (
+          <Route key={route.id} path={route.path} element={route.element} />
+        ))}
+        <Route {...notFoundRoute} />
+      </Route>
     </Routes>
   );
 }

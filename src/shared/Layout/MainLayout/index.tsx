@@ -1,6 +1,7 @@
 import {
   BookOutlined,
   HomeOutlined,
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ShopOutlined,
@@ -12,9 +13,11 @@ import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import MenuItems from "./components/MenuItems";
+import { useAuthStore } from "../../store/authStore";
 
 export default function MainLayout() {
   const [collapsed, setCollapsed] = useState(false);
+  const { logout } = useAuthStore();
   const { Header, Content } = Layout;
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -44,6 +47,19 @@ export default function MainLayout() {
           }}
         />
         <MenuItems routes={routes} />
+        <Button
+          type="text"
+          icon={<LogoutOutlined />}
+          onClick={logout}
+          style={{
+            position: "absolute",
+            bottom: 20, // Ajuste a posição conforme necessário
+            left: 20,
+            width: "calc(100% - 40px)", // Para centralizar o botão
+          }}
+        >
+          Sair
+        </Button>
       </Sider>
       <Layout>
         <Header
