@@ -1,11 +1,26 @@
 import { Table } from "antd";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 interface ITableProps {
   columns: any;
   data: any;
+  valueDefault?: string;
 }
 
-export default function CustomTable({ columns, data }: ITableProps) {
+export default function CustomTable({
+  columns,
+  data,
+  valueDefault,
+}: ITableProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (valueDefault) {
+      setSearchParams({ ...searchParams, page: valueDefault });
+    }
+  }, [valueDefault]);
+
   return (
     <Table
       style={{ marginTop: 20 }}

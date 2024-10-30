@@ -2,13 +2,26 @@ import { Form, Input, DatePicker, List, Button } from "antd";
 import { Controller, UseFormReturn } from "react-hook-form";
 import dayjs from "dayjs";
 import { TPartner } from "../types/partner";
-import { DeleteOutlined } from "@ant-design/icons";
+import {
+  ContainerOutlined,
+  DeleteOutlined,
+  FundProjectionScreenOutlined,
+  GithubOutlined,
+  IdcardOutlined,
+} from "@ant-design/icons";
+import { useEffect, useState } from "react";
 
 interface IPartnerForm {
   form: UseFormReturn<TPartner, any, undefined>;
 }
 
 export default function PartnerForm({ form }: IPartnerForm) {
+  useEffect(() => {
+    form.setValue("createdAt", dayjs().format("YYYY-MM-DD"));
+  }, [form]);
+  const [inputClient, setInputClient] = useState("");
+  const [inputProject, setInputProject] = useState("");
+
   return (
     <Form layout="vertical">
       <Form.Item label="Data de Criação">
@@ -20,6 +33,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
               value={dayjs(field.value) || null}
               format="DD/MM/YYYY"
               onChange={(date) => field.onChange(date)}
+              disabled
             />
           )}
         />
@@ -37,6 +51,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
                   show: true,
                   max: 20,
                 }}
+                maxLength={20}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite o nome"
@@ -60,6 +75,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
                   show: true,
                   max: 80,
                 }}
+                maxLength={80}
                 value={field.value}
                 onChange={field.onChange}
                 rows={2}
@@ -80,7 +96,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
           render={({ field, fieldState }) => (
             <>
               <Input
-                addonBefore="URL"
+                addonBefore={<GithubOutlined />}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite a URL do repositório"
@@ -100,7 +116,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
           render={({ field, fieldState }) => (
             <>
               <Input
-                addonBefore="URL"
+                addonBefore={<ContainerOutlined />}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite a URL do documento"
@@ -117,52 +133,71 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="clients"
           control={form.control}
-          render={({ field, fieldState }) => (
-            <>
-              <Input
-                placeholder="Digite os IDs dos clientes, separados por vírgula"
-                addonBefore="ID"
-                count={{
-                  show: true,
-                  max: 80,
-                }}
-                onChange={(e) => {
-                  const values = e.target.value
-                    .split(",")
-                    .map((item) => item.trim());
-                  field.onChange(values);
-                }}
-                value={field.value.join(",") || ""}
-              />
-              {fieldState.error && (
-                <span style={{ color: "red" }}>{fieldState.error.message}</span>
-              )}
-              <List
-                size="small"
-                bordered
-                dataSource={field.value}
-                renderItem={(item, index) => (
-                  <List.Item
-                    actions={[
-                      <Button
-                        type="link"
-                        onClick={() => {
-                          const updatedClients = form
-                            .getValues("clients")
-                            .filter((_, i) => i !== index);
-                          field.onChange(updatedClients);
-                        }}
-                      >
-                        <DeleteOutlined />
-                      </Button>,
-                    ]}
-                  >
-                    {item}
-                  </List.Item>
+          render={({ field, fieldState }) => {
+            return (
+              <>
+                <Input
+                  count={{
+                    show: true,
+                    max: 40,
+                  }}
+                  maxLength={40}
+                  placeholder="Digite o nome do cliente"
+                  addonBefore={<IdcardOutlined />}
+                  value={inputClient}
+                  onChange={(e) => setInputClient(e.target.value)}
+                  onPressEnter={() => {
+                    if (inputClient.trim()) {
+                      field.onChange([...field.value, inputClient.trim()]);
+                      setInputClient("");
+                    }
+                  }}
+                  suffix={
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        if (inputClient.trim()) {
+                          field.onChange([...field.value, inputClient.trim()]);
+                          setInputClient("");
+                        }
+                      }}
+                    >
+                      Adicionar
+                    </Button>
+                  }
+                />
+                {fieldState.error && (
+                  <span style={{ color: "red" }}>
+                    {fieldState.error.message}
+                  </span>
                 )}
-              />
-            </>
-          )}
+                <List
+                  size="small"
+                  bordered
+                  dataSource={field.value}
+                  renderItem={(item, index) => (
+                    <List.Item
+                      actions={[
+                        <Button
+                          type="link"
+                          onClick={() => {
+                            const updatedClients = form
+                              .getValues("clients")
+                              .filter((_, i) => i !== index);
+                            field.onChange(updatedClients);
+                          }}
+                        >
+                          <DeleteOutlined />
+                        </Button>,
+                      ]}
+                    >
+                      {item}
+                    </List.Item>
+                  )}
+                />
+              </>
+            );
+          }}
         />
       </Form.Item>
 
@@ -170,52 +205,71 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="projects"
           control={form.control}
-          render={({ field, fieldState }) => (
-            <>
-              <Input
-                placeholder="Digite os IDs dos projetos, separados por vírgula"
-                addonBefore="ID"
-                count={{
-                  show: true,
-                  max: 80,
-                }}
-                onChange={(e) => {
-                  const values = e.target.value
-                    .split(",")
-                    .map((item) => item.trim());
-                  field.onChange(values);
-                }}
-                value={field.value.join(",") || ""}
-              />
-              {fieldState.error && (
-                <span style={{ color: "red" }}>{fieldState.error.message}</span>
-              )}
-              <List
-                size="small"
-                bordered
-                dataSource={field.value}
-                renderItem={(item, index) => (
-                  <List.Item
-                    actions={[
-                      <Button
-                        type="link"
-                        onClick={() => {
-                          const updatedClients = form
-                            .getValues("projects")
-                            .filter((_, i) => i !== index);
-                          field.onChange(updatedClients);
-                        }}
-                      >
-                        <DeleteOutlined />
-                      </Button>,
-                    ]}
-                  >
-                    {item}
-                  </List.Item>
+          render={({ field, fieldState }) => {
+            return (
+              <>
+                <Input
+                  count={{
+                    show: true,
+                    max: 40,
+                  }}
+                  maxLength={40}
+                  placeholder="Digite o nome do projeto"
+                  addonBefore={<FundProjectionScreenOutlined />}
+                  value={inputProject}
+                  onChange={(e) => setInputProject(e.target.value)}
+                  onPressEnter={() => {
+                    if (inputProject.trim()) {
+                      field.onChange([...field.value, inputProject.trim()]);
+                      setInputProject("");
+                    }
+                  }}
+                  suffix={
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        if (inputProject.trim()) {
+                          field.onChange([...field.value, inputProject.trim()]);
+                          setInputProject("");
+                        }
+                      }}
+                    >
+                      Adicionar
+                    </Button>
+                  }
+                />
+                {fieldState.error && (
+                  <span style={{ color: "red" }}>
+                    {fieldState.error.message}
+                  </span>
                 )}
-              />
-            </>
-          )}
+                <List
+                  size="small"
+                  bordered
+                  dataSource={field.value}
+                  renderItem={(item, index) => (
+                    <List.Item
+                      actions={[
+                        <Button
+                          type="link"
+                          onClick={() => {
+                            const updatedProjects = form
+                              .getValues("projects")
+                              .filter((_, i) => i !== index);
+                            field.onChange(updatedProjects);
+                          }}
+                        >
+                          <DeleteOutlined />
+                        </Button>,
+                      ]}
+                    >
+                      {item}
+                    </List.Item>
+                  )}
+                />
+              </>
+            );
+          }}
         />
       </Form.Item>
     </Form>

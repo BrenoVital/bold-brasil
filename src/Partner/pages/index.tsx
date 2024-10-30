@@ -17,6 +17,7 @@ import { partnerService } from "../services";
 export default function Partner() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const valueDefault = "1";
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const openModal = (record: any) => {
     setSelectedRecord(record);
@@ -135,7 +136,7 @@ export default function Partner() {
         route="criar"
         titleButon="Cadastrar Parceiro"
       />
-      <CustomTable columns={columns} data={data} />
+      <CustomTable columns={columns} data={data} valueDefault={valueDefault} />
       <Modal
         title="Detalhes do Parceiro"
         open={isModalOpen}

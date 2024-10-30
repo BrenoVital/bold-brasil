@@ -10,6 +10,8 @@ import { companyService } from "../services";
 
 export default function ExternalCompany() {
   const navigate = useNavigate();
+  const valueDefault = "1";
+
   const { data, refetch } = useQuery({
     queryKey: ["company"],
     queryFn: () => companyService.getAll(),
@@ -111,7 +113,7 @@ export default function ExternalCompany() {
         route="criar"
         titleButon="Cadastrar Empresa"
       />
-      <CustomTable columns={columns} data={data} />
+      <CustomTable columns={columns} data={data} valueDefault={valueDefault} />
     </Col>
   );
 }

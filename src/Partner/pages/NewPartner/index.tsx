@@ -9,11 +9,25 @@ import { TPartner } from "../../types/partner";
 import FormPartner from "../../components/FormPartner";
 import { partnerService } from "../../services";
 
+const urlPattern = /^(https?:\/\/[^\s$.?#].[^\s]*)$/;
+
 const schemaCreatePartner = zod.object({
   name: zod.string().min(3, "Nome deve ter no mínimo 3 caracteres"),
   description: zod.string().min(3, "Descrição deve ter no mínimo 3 caracteres"),
-  repositoryGit: zod.string().optional(),
-  urlDoc: zod.string().optional(),
+  repositoryGit: zod
+    .string()
+    .min(3, "Inserir URL valida")
+    .refine((url) => !url || urlPattern.test(url), {
+      message:
+        "Por favor, insira uma URL válida para o documento. Ex: https://www.google.com",
+    }),
+  urlDoc: zod
+    .string()
+    .min(3, "Inserir URL valida")
+    .refine((url) => !url || urlPattern.test(url), {
+      message:
+        "Por favor, insira uma URL válida para o documento. Ex: https://www.google.com",
+    }),
   clients: zod
     .array(zod.string().min(1, "Cada cliente deve ter caracteres válidos"))
     .nonempty("Clientes é obrigatório")
@@ -53,7 +67,6 @@ export default function NewPartner() {
         clients: [],
         projects: [],
       });
-      console.log("Valores após o reset:", form.getValues());
     },
     onError: () => {
       openNotification("error", "Erro ao criar parceiro");
