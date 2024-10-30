@@ -20,6 +20,7 @@ export default function FormCompany({ form }: ICompanyForm) {
                 value={dayjs(field.value) || null}
                 format="DD/MM/YYYY"
                 onChange={(date) => field.onChange(date)}
+                disabled
               />
               {fieldState.error && (
                 <span style={{ color: "red" }}>{fieldState.error.message}</span>
@@ -38,8 +39,9 @@ export default function FormCompany({ form }: ICompanyForm) {
               <Input
                 count={{
                   show: true,
-                  max: 20,
+                  max: 40,
                 }}
+                maxLength={40}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite o nome da empresa"
@@ -59,6 +61,7 @@ export default function FormCompany({ form }: ICompanyForm) {
             <>
               <Input
                 type="number"
+                min={1}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite o número de colaboradores"
@@ -70,7 +73,7 @@ export default function FormCompany({ form }: ICompanyForm) {
           )}
         />
       </Form.Item>
-      <Form.Item label="Ativo">
+      <Form.Item>
         <Controller
           name="isActive"
           control={form.control}
@@ -86,6 +89,7 @@ export default function FormCompany({ form }: ICompanyForm) {
           )}
         />
       </Form.Item>
+
       <Form.Item label="Última atualização">
         <Controller
           name="lastSubmit"
@@ -93,10 +97,10 @@ export default function FormCompany({ form }: ICompanyForm) {
           render={({ field, fieldState }) => (
             <>
               <DatePicker
-                value={dayjs(field.value) || null}
+                value={field.value ? dayjs(field.value) : null}
                 format="DD/MM/YYYY"
                 onChange={(date) =>
-                  field.onChange(date ? date.format("YYYY-MM-DD") : "")
+                  field.onChange(date ? date.format("YYYY-MM-DD") : null)
                 }
               />
               {fieldState.error && (

@@ -28,13 +28,18 @@ export default function PartnerForm({ form }: IPartnerForm) {
         <Controller
           name="createdAt"
           control={form.control}
-          render={({ field }) => (
-            <DatePicker
-              value={dayjs(field.value) || null}
-              format="DD/MM/YYYY"
-              onChange={(date) => field.onChange(date)}
-              disabled
-            />
+          render={({ field, fieldState }) => (
+            <>
+              <DatePicker
+                value={dayjs(field.value) || null}
+                format="DD/MM/YYYY"
+                onChange={(date) => field.onChange(date)}
+                disabled
+              />
+              {fieldState.error && (
+                <span style={{ color: "red" }}>{fieldState.error.message}</span>
+              )}
+            </>
           )}
         />
       </Form.Item>
