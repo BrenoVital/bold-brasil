@@ -132,6 +132,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
                     .map((item) => item.trim());
                   field.onChange(values);
                 }}
+                value={field.value.join(",") || ""}
               />
               {fieldState.error && (
                 <span style={{ color: "red" }}>{fieldState.error.message}</span>
@@ -139,7 +140,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
               <List
                 size="small"
                 bordered
-                dataSource={form.getValues("clients")}
+                dataSource={field.value}
                 renderItem={(item, index) => (
                   <List.Item
                     actions={[
@@ -184,6 +185,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
                     .map((item) => item.trim());
                   field.onChange(values);
                 }}
+                value={field.value.join(",") || ""}
               />
               {fieldState.error && (
                 <span style={{ color: "red" }}>{fieldState.error.message}</span>
@@ -191,7 +193,7 @@ export default function PartnerForm({ form }: IPartnerForm) {
               <List
                 size="small"
                 bordered
-                dataSource={form.getValues("projects")}
+                dataSource={field.value}
                 renderItem={(item, index) => (
                   <List.Item
                     actions={[

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { openNotification } from "../../../shared/components/Notifications";
-import { Button, Col } from "antd";
+import { Button, Col, Popconfirm } from "antd";
 import TitleHeader from "../../../shared/components/TitleHeader";
 import { TCompany } from "../../types/company";
 import FormCompany from "../../components/FormCompany";
@@ -20,6 +20,12 @@ const schemaCreateCompany = zod.object({
 
 export default function NewCompany() {
   const form = useForm<TCompany>({
+    defaultValues: {
+      companyName: "",
+      collaboratorsCount: "",
+      isActive: true,
+      lastSubmit: "",
+    },
     resolver: zodResolver(schemaCreateCompany),
   });
 
@@ -51,9 +57,14 @@ export default function NewCompany() {
         titleButon="Cadastrar Empresa"
       />
       <FormCompany form={form} />
-      <Button type="primary" onClick={form.handleSubmit(onSubmit)}>
-        Salvar
-      </Button>
+      <Popconfirm
+        title="Deseja realmente salvar?"
+        onConfirm={form.handleSubmit(onSubmit)}
+        okText="Sim"
+        cancelText="Não"
+      >
+        <Button type="primary">Salvar</Button>
+      </Popconfirm>
     </Col>
   );
 }

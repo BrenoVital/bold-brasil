@@ -30,6 +30,14 @@ const schemaCreatePartner = zod.object({
 
 export default function NewPartner() {
   const form = useForm<TPartner>({
+    defaultValues: {
+      name: "",
+      description: "",
+      repositoryGit: "",
+      urlDoc: "",
+      clients: [],
+      projects: [],
+    },
     resolver: zodResolver(schemaCreatePartner),
   });
 
@@ -37,7 +45,15 @@ export default function NewPartner() {
     mutationFn: (data: TPartner) => partnerService.create({ partner: data }),
     onSuccess: () => {
       openNotification("success", "Parceiro criado com sucesso");
-      form.reset();
+      form.reset({
+        name: "",
+        description: "",
+        repositoryGit: "",
+        urlDoc: "",
+        clients: [],
+        projects: [],
+      });
+      console.log("Valores após o reset:", form.getValues());
     },
     onError: () => {
       openNotification("error", "Erro ao criar parceiro");
