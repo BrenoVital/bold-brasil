@@ -10,6 +10,7 @@ import Partner from "../Partner/pages";
 import ExternalCompany from "../ExternalCompany/pages";
 import NotFound from "../pages/NotFound";
 import { useAuthStore } from "../shared/store/authStore";
+import About from "../pages/About";
 
 export default function MainRoutes() {
   const { isAuthenticated } = useAuthStore();
@@ -48,6 +49,11 @@ export default function MainRoutes() {
       id: "7",
       path: "/empresas/editar/:id",
       element: <EditCompany />,
+    },
+    {
+      id: "8",
+      path: "/sobre",
+      element: <About />,
     },
   ];
 

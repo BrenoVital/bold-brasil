@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown } from "antd";
+import { Button, Col, Dropdown, Popconfirm } from "antd";
 import TitleHeader from "../../shared/components/TitleHeader";
 import CustomTable from "../../shared/components/Table";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { companyService } from "../services";
 
 export default function ExternalCompany() {
   const navigate = useNavigate();
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["company"],
     queryFn: () => companyService.getAll(),
   });
@@ -21,6 +21,7 @@ export default function ExternalCompany() {
     mutationFn: (id: string) => companyService.remove(id),
     onSuccess() {
       openNotification("success", "Parceiro excluído com sucesso");
+      refetch();
     },
     onError() {
       openNotification("error", "Erro ao excluir parceiro");
@@ -78,9 +79,18 @@ export default function ExternalCompany() {
               },
               {
                 key: "delete",
-                label: "Excluir",
+                label: (
+                  <Popconfirm
+                    title="Tem certeza que deseja excluir esta empresa?"
+                    onConfirm={() => handleDelete(record.id)}
+                    okText="Sim"
+                    cancelText="Não"
+                    onCancel={() => {}}
+                  >
+                    Excluir
+                  </Popconfirm>
+                ),
                 icon: <DeleteOutlined />,
-                onClick: () => handleDelete(record.id),
               },
             ],
           }}

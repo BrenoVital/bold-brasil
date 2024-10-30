@@ -1,4 +1,5 @@
 import {
+  BookOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -19,11 +20,11 @@ export default function MainLayout() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  // Rotas principais
   const routes: any = {
     "/": { name: "Início", icon: <HomeOutlined /> },
     "/parceiros": { name: "Parceiros", icon: <UsergroupAddOutlined /> },
     "/empresas": { name: "Empresas", icon: <ShopOutlined /> },
+    "/sobre": { name: "Sobre", icon: <BookOutlined /> },
   };
 
   return (

@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { openNotification } from "../../../shared/components/Notifications";
 import { useEffect } from "react";
-import { Button, Col, Spin } from "antd";
+import { Button, Col, Popconfirm, Spin } from "antd";
 import TitleHeader from "../../../shared/components/TitleHeader";
-import ModalConfirm from "../../../shared/components/PopConfirm";
 import { TCompany } from "../../types/company";
 import FormCompany from "../../components/FormCompany";
 import { companyService } from "../../services";
@@ -52,23 +51,20 @@ export default function EditCompany() {
     <Col span={24}>
       <TitleHeader title="Editar Empresa" buttonBack />
       <FormCompany form={form} />
-      <ModalConfirm
+      <Popconfirm
         title="Deseja realmente editar?"
         description="Ao confirmar as alterações, a empresa será atualizada."
-        confirm={() => form.handleSubmit(onSubmit)()}
-        cancel={() => {
+        onConfirm={form.handleSubmit(onSubmit)}
+        onCancel={() => {
           window.location.href = "/empresas";
         }}
-        component={
-          <Button
-            type="primary"
-            style={{ marginRight: 10 }}
-            loading={isPending}
-          >
-            Salvar
-          </Button>
-        }
-      />
+        okText="Sim"
+        cancelText="Não"
+      >
+        <Button type="primary" style={{ marginRight: 10 }} loading={isPending}>
+          Salvar
+        </Button>
+      </Popconfirm>
     </Col>
   );
 }

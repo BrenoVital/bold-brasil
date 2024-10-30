@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, Modal } from "antd";
+import { Button, Col, Dropdown, Modal, Popconfirm } from "antd";
 import CustomTable from "../../shared/components/Table";
 import {
   DeleteOutlined,
@@ -27,7 +27,7 @@ export default function Partner() {
     setIsModalOpen(false);
     setSelectedRecord(null);
   };
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["partners"],
     queryFn: () => partnerService.getAll(),
   });
@@ -40,6 +40,7 @@ export default function Partner() {
     mutationFn: (id: string) => partnerService.remove(id),
     onSuccess() {
       openNotification("success", "Parceiro excluído com sucesso");
+      refetch();
     },
     onError() {
       openNotification("error", "Erro ao excluir parceiro");
@@ -97,9 +98,18 @@ export default function Partner() {
               },
               {
                 key: "delete",
-                label: "Excluir",
+                label: (
+                  <Popconfirm
+                    title="Tem certeza que deseja excluir este parceiro?"
+                    onConfirm={() => handleDelete(record.id)}
+                    okText="Sim"
+                    cancelText="Não"
+                    onCancel={() => {}}
+                  >
+                    Excluir
+                  </Popconfirm>
+                ),
                 icon: <DeleteOutlined />,
-                onClick: () => handleDelete(record.id),
               },
               {
                 key: "view",

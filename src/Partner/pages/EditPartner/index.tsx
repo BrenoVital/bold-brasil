@@ -1,11 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { Button, Col, Spin } from "antd";
+import { Button, Col, Popconfirm, Spin } from "antd";
 import TitleHeader from "../../../shared/components/TitleHeader";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { openNotification } from "../../../shared/components/Notifications";
 import { useEffect } from "react";
-import ModalConfirm from "../../../shared/components/PopConfirm";
 import { TPartner } from "../../types/partner";
 import FormPartner from "../../components/FormPartner";
 import { partnerService } from "../../services";
@@ -53,23 +52,20 @@ export default function EditPartner() {
     <Col span={24}>
       <TitleHeader title="Editar Parceiro" buttonBack />
       <FormPartner form={form} />
-      <ModalConfirm
+      <Popconfirm
         title="Deseja realmente editar?"
         description="Ao confirmar as alterações, o parceiro será atualizado."
-        confirm={() => form.handleSubmit(onSubmit)()}
-        cancel={() => {
+        onConfirm={form.handleSubmit(onSubmit)}
+        onCancel={() => {
           window.location.href = "/parceiros";
         }}
-        component={
-          <Button
-            type="primary"
-            style={{ marginRight: 10 }}
-            loading={isPending}
-          >
-            Salvar
-          </Button>
-        }
-      />
+        okText="Sim"
+        cancelText="Não"
+      >
+        <Button type="primary" loading={isPending}>
+          Salvar
+        </Button>
+      </Popconfirm>
     </Col>
   );
 }
