@@ -53,9 +53,10 @@ export default function MainLayout() {
           onClick={logout}
           style={{
             position: "absolute",
-            bottom: 20, // Ajuste a posição conforme necessário
+            bottom: 20,
             left: 20,
-            width: "calc(100% - 40px)", // Para centralizar o botão
+            width: "calc(100% - 40px)",
+            color: "white",
           }}
         >
           Sair

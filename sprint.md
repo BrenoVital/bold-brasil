@@ -40,7 +40,7 @@
 - [x] **Cadastrar Empresa Externa**: Formulário para criar nova empresa.
 - [x] **Listar Empresas Externas**: Tabela com paginação e ações de editar/excluir.
 - [x] **Excluir Empresa Externas**: Botão dentro da tabela para deletar empresa por id.
-- [ ] **Sobre a Aplicação**: Página explicando a estrutura do projeto, tecnologias utilizadas, propósito do sistema, etc.
+- [x] **Sobre a Aplicação**: Página explicando a estrutura do projeto, tecnologias utilizadas, propósito do sistema, etc.
 - [x] **Tela inicial**: Tela de início com relatórios de quantidade de empresas e parceiros.
 - [x] **Sair**: Opção que redireciona para a tela de login.
 
