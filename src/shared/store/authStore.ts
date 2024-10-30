@@ -17,7 +17,7 @@ export const useAuthStore = create(
         const mockAuthenticate = (_: string, senha: string) => {
           return new Promise<boolean>((resolve) => {
             setTimeout(() => {
-              resolve(senha === "senhaSegura");
+              resolve(senha === "123456");
             }, 500);
           });
         };

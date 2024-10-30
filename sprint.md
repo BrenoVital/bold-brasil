@@ -33,7 +33,7 @@
 
 ### Página Inicial
 
-- [x] Layout da aplicação com menu e itens principais:
+- [x] **Layout da aplicação**: com menu e itens principais:
 - [x] **Cadastrar Parceiro**: Formulário para criar novo parceiro.
 - [x] **Listar Parceiros**: Tabela com paginação e ações de editar/excluir.
 - [x] **Excluir Parceiro**: Botão dentro da tabela para deletar parceiro por id.

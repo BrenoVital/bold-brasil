@@ -63,7 +63,7 @@ Abaixo estão listadas as principais bibliotecas utilizadas no projeto:
 - **[antd](https://www.npmjs.com/package/antd)**: Componentes de design do Ant Design.
 - **[axios](https://www.npmjs.com/package/axios)**: Biblioteca para fazer requisições HTTP.
 - **[dayjs](https://www.npmjs.com/package/dayjs)**: Manipulação de datas e horas.
-- **[react](https://www.npmjs.com/package/react) e [react-dom](https://www.npmjs.com/package/react-dom)**: Bibliotecas principais para construção da interface de usuário.
+- **[react](https://www.npmjs.com/package/react)** e **[react-dom](https://www.npmjs.com/package/react-dom)**: Bibliotecas principais para construção da interface de usuário.
 - **[react-helmet-async](https://www.npmjs.com/package/react-helmet-async)**: Gerenciamento de metadados para SEO.
 - **[react-hook-form](https://www.npmjs.com/package/react-hook-form)**: Gerenciamento de formulários e validação.
 - **[react-router-dom](https://www.npmjs.com/package/react-router-dom)**: Roteamento para navegação entre páginas.
