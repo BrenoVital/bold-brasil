@@ -13,15 +13,15 @@
 ## Endpoints da API
 
 - **Parceiros**
-  - [x] Listar todos os parceiros - `GET`
-  - [x] Cadastrar novo parceiro - `POST`
-  - [x] Atualizar parceiro - `PUT`
-  - [x] Deletar parceiro - `DELETE`
+- [x] Listar todos os parceiros - `GET`
+- [x] Cadastrar novo parceiro - `POST`
+- [x] Atualizar parceiro - `PUT`
+- [x] Deletar parceiro - `DELETE`
 - **Empresas Externas**
-  - [x] Listar todas as empresas - `GET`
-  - [x] Cadastrar nova empresa - `POST`
-  - [x] Atualizar empresa - `PUT`
-  - [x] Deletar empresa - `DELETE`
+- [x] Listar todas as empresas - `GET`
+- [x] Cadastrar nova empresa - `POST`
+- [x] Atualizar empresa - `PUT`
+- [x] Deletar empresa - `DELETE`
 
 ## Tela de Login
 
@@ -41,6 +41,7 @@
 - [x] **Listar Empresas Externas**: Tabela com paginação e ações de editar/excluir.
 - [x] **Excluir Empresa Externas**: Botão dentro da tabela para deletar empresa por id.
 - [ ] **Sobre a Aplicação**: Página explicando a estrutura do projeto, tecnologias utilizadas, propósito do sistema, etc.
+- [x] **Tela inicial**: Tela de início com relatórios de quantidade de empresas e parceiros.
 - [x] **Sair**: Opção que redireciona para a tela de login.
 
 ### Compartilhamento de Dados
@@ -66,6 +67,6 @@
 
 ## Melhorias Visuais
 
-- [ ] Adição de mensagens de erro na tela de login para credenciais inválidas.
+- [x] Adição de mensagens de erro na tela de login para credenciais inválidas.
 - [x] Adição de mensagens de erro no retorno das requisições de parceiros.
 - [x] Adição de mensagens de erro no retorno das requisições de empresas.
