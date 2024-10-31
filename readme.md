@@ -60,7 +60,7 @@ Para rodar o projeto em um ambiente Docker, siga as instruções abaixo:
 
    ```bash
    docker build -t bold-brasil .
-   docker run -p 5173:5173 bold-brasil
+   docker run -d -p 5173:5173 bold-brasil
    ```
 
 ## Scripts Disponíveis

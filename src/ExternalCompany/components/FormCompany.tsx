@@ -1,5 +1,5 @@
 import { Controller, UseFormReturn } from "react-hook-form";
-import { Checkbox, DatePicker, Form, Input } from "antd";
+import { Checkbox, DatePicker, Form, Input, Row } from "antd";
 import dayjs from "dayjs";
 import { TCompany } from "../types/company";
 
@@ -10,25 +10,53 @@ interface ICompanyForm {
 export default function FormCompany({ form }: ICompanyForm) {
   return (
     <Form layout="vertical">
-      <Form.Item label="Data de Criação">
-        <Controller
-          name="createdAt"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <>
-              <DatePicker
-                value={dayjs(field.value) || null}
-                format="DD/MM/YYYY"
-                onChange={(date) => field.onChange(date)}
-                disabled
-              />
-              {fieldState.error && (
-                <span style={{ color: "red" }}>{fieldState.error.message}</span>
-              )}
-            </>
-          )}
-        />
-      </Form.Item>
+      <Row gutter={16}>
+        <Form.Item label="Data de Criação">
+          <Controller
+            name="createdAt"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <>
+                <DatePicker
+                  value={dayjs(field.value) || null}
+                  format="DD/MM/YYYY"
+                  onChange={(date) => field.onChange(date)}
+                  disabled
+                  style={{ marginRight: 10 }}
+                />
+                {fieldState.error && (
+                  <span style={{ color: "red" }}>
+                    {fieldState.error.message}
+                  </span>
+                )}
+              </>
+            )}
+          />
+        </Form.Item>
+        <Form.Item label="Última atualização">
+          <Controller
+            name="lastSubmit"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <>
+                <DatePicker
+                  value={field.value ? dayjs(field.value) : null}
+                  format="DD/MM/YYYY"
+                  onChange={(date) =>
+                    field.onChange(date ? date.format("YYYY-MM-DD") : null)
+                  }
+                  disabled
+                />
+                {fieldState.error && (
+                  <span style={{ color: "red" }}>
+                    {fieldState.error.message}
+                  </span>
+                )}
+              </>
+            )}
+          />
+        </Form.Item>
+      </Row>
       <Form.Item label="Nome da Empresa" required>
         <Controller
           name="companyName"
@@ -41,6 +69,7 @@ export default function FormCompany({ form }: ICompanyForm) {
                   show: true,
                   max: 40,
                 }}
+                style={{ width: "50%" }}
                 maxLength={40}
                 value={field.value}
                 onChange={field.onChange}
@@ -64,6 +93,7 @@ export default function FormCompany({ form }: ICompanyForm) {
                 min={1}
                 value={field.value}
                 onChange={field.onChange}
+                style={{ width: "50%" }}
                 placeholder="Digite o número de colaboradores"
               />
               {fieldState.error && (
@@ -85,27 +115,6 @@ export default function FormCompany({ form }: ICompanyForm) {
               >
                 Empresa Ativa
               </Checkbox>
-            </>
-          )}
-        />
-      </Form.Item>
-
-      <Form.Item label="Última atualização">
-        <Controller
-          name="lastSubmit"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <>
-              <DatePicker
-                value={field.value ? dayjs(field.value) : null}
-                format="DD/MM/YYYY"
-                onChange={(date) =>
-                  field.onChange(date ? date.format("YYYY-MM-DD") : null)
-                }
-              />
-              {fieldState.error && (
-                <span style={{ color: "red" }}>{fieldState.error.message}</span>
-              )}
             </>
           )}
         />

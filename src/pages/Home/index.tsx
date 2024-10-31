@@ -38,9 +38,9 @@ export default function Home() {
     : 0;
 
   const data = [
-    { name: "Empresas Ativas", value: activeCompanies },
-    { name: "Empresas Inativas", value: inactiveCompanies },
-    { name: "Parceiros", value: totalPartners },
+    { name: "Empresas Ativas", quantidade: activeCompanies },
+    { name: "Empresas Inativas", quantidade: inactiveCompanies },
+    { name: "Parceiros", quantidade: totalPartners },
   ];
 
   const COLORS = ["#4CAF50", "#F44336", "#2196F3"];
@@ -59,7 +59,7 @@ export default function Home() {
         <PieChart width={400} height={400}>
           <Pie
             data={data}
-            dataKey="value"
+            dataKey="quantidade"
             nameKey="name"
             cx="50%"
             cy="50%"
@@ -87,7 +87,7 @@ export default function Home() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="value" fill="#8884d8">
+            <Bar dataKey="quantidade" fill="#8884d8">
               {data.map((_, index) => (
                 <Cell
                   key={`cell-bar-${index}`}

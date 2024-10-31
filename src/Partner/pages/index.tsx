@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, Modal, Popconfirm } from "antd";
+import { Button, Col, Dropdown, Modal, Popconfirm, Typography } from "antd";
 import CustomTable from "../../shared/components/Table";
 import {
   DeleteOutlined,
@@ -148,20 +148,24 @@ export default function Partner() {
         ]}
       >
         {selectedRecord && (
-          <div>
-            <h4>Clientes:</h4>
-            <ul>
+          <Col span={24}>
+            <Typography.Title level={4}>ID dos clientes</Typography.Title>
+            <Typography.Paragraph>
               {selectedRecord.clients?.map((client: any, index: number) => (
-                <li key={index}>{client}</li>
+                <Col key={index}>
+                  <Typography.Text>ID: {client}</Typography.Text>
+                </Col>
               ))}
-            </ul>
-            <h4>Projetos:</h4>
-            <ul>
+            </Typography.Paragraph>
+            <Typography.Title level={4}>ID dos projetos</Typography.Title>
+            <Typography.Paragraph>
               {selectedRecord.projects?.map((project: any, index: number) => (
-                <li key={index}>{project}</li>
+                <Col key={index}>
+                  <Typography.Text>ID: {project}</Typography.Text>
+                </Col>
               ))}
-            </ul>
-          </div>
+            </Typography.Paragraph>
+          </Col>
         )}
       </Modal>
     </Col>
