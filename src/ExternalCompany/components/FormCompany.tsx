@@ -20,7 +20,6 @@ export default function FormCompany({ form }: ICompanyForm) {
                 <DatePicker
                   value={dayjs(field.value) || null}
                   format="DD/MM/YYYY"
-                  onChange={(date) => field.onChange(date)}
                   disabled
                   style={{ marginRight: 10 }}
                 />
@@ -40,11 +39,8 @@ export default function FormCompany({ form }: ICompanyForm) {
             render={({ field, fieldState }) => (
               <>
                 <DatePicker
-                  value={field.value ? dayjs(field.value) : null}
+                  value={dayjs(field.value) || null}
                   format="DD/MM/YYYY"
-                  onChange={(date) =>
-                    field.onChange(date ? date.format("YYYY-MM-DD") : null)
-                  }
                   disabled
                 />
                 {fieldState.error && (
@@ -89,10 +85,18 @@ export default function FormCompany({ form }: ICompanyForm) {
           render={({ field, fieldState }) => (
             <>
               <Input
-                type="number"
+                type="text"
                 min={1}
                 value={field.value}
-                onChange={field.onChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (
+                    value === "" ||
+                    (/^\d+$/.test(value) && Number(value) >= 1)
+                  ) {
+                    field.onChange(value);
+                  }
+                }}
                 style={{ width: "50%" }}
                 placeholder="Digite o número de colaboradores"
               />

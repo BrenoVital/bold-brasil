@@ -63,7 +63,9 @@ export default function NewCompany() {
         okText="Sim"
         cancelText="Não"
       >
-        <Button type="primary">Salvar</Button>
+        <Button type="primary" htmlType="submit">
+          Salvar
+        </Button>
       </Popconfirm>
     </Col>
   );

@@ -19,7 +19,13 @@ export default function EditCompany() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: TCompany) =>
-      companyService.update({ id: id!, company: data }),
+      companyService.update({
+        id: id!,
+        company: {
+          ...data,
+          lastSubmit: new Date().toISOString(),
+        },
+      }),
     onSuccess: () => {
       openNotification("success", "Empresa atualizada com sucesso");
       setTimeout(() => {
@@ -61,7 +67,12 @@ export default function EditCompany() {
         okText="Sim"
         cancelText="Não"
       >
-        <Button type="primary" style={{ marginRight: 10 }} loading={isPending}>
+        <Button
+          type="primary"
+          style={{ marginRight: 10 }}
+          loading={isPending}
+          htmlType="submit"
+        >
           Salvar
         </Button>
       </Popconfirm>

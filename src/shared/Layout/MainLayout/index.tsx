@@ -1,5 +1,6 @@
 import {
   BookOutlined,
+  GithubOutlined,
   HomeOutlined,
   LogoutOutlined,
   MenuFoldOutlined,
@@ -8,7 +9,18 @@ import {
   UsergroupAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Badge, Button, Col, Layout, Space, theme } from "antd";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Col,
+  Dropdown,
+  Layout,
+  List,
+  Row,
+  Space,
+  theme,
+} from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
@@ -30,6 +42,12 @@ export default function MainLayout() {
     "/sobre": { name: "Sobre", icon: <BookOutlined /> },
   };
 
+  const notifications = [
+    { id: 1, message: "Nova mensagem de suporte" },
+    { id: 2, message: "Atualização de política de privacidade" },
+    { id: 3, message: "Novo parceiro adicionado" },
+  ];
+
   return (
     <Layout
       style={{
@@ -38,14 +56,14 @@ export default function MainLayout() {
       }}
     >
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div
-          style={{
-            height: 64,
-            backgroundColor: "gray",
-            margin: 10,
-            borderRadius: 10,
-          }}
-        />
+        <Row style={{ padding: 16 }} justify="center">
+          <GithubOutlined
+            style={{ fontSize: 32, color: "white" }}
+            onClick={() =>
+              window.open("https://github.com/BrenoVital", "_blank")
+            }
+          />
+        </Row>
         <MenuItems routes={routes} />
         <Button
           type="text"
@@ -87,15 +105,54 @@ export default function MainLayout() {
             />
           </Col>
           <Col flex="0 1 55px">
-            <Space
-              size={24}
-              onClick={() => console.log("click")}
-              style={{ cursor: "pointer" }}
+            <Dropdown
+              overlayStyle={{ width: 300 }}
+              menu={{
+                items: [
+                  {
+                    key: "notifications",
+                    label: (
+                      <Space direction="vertical" style={{ width: "100%" }}>
+                        {notifications.length > 0 ? (
+                          <List
+                            itemLayout="horizontal"
+                            dataSource={notifications}
+                            renderItem={(item) => (
+                              <List.Item>
+                                <List.Item.Meta
+                                  title={item.message}
+                                  description="Há 5 minutos"
+                                />
+                              </List.Item>
+                            )}
+                          />
+                        ) : (
+                          <p>Sem notificações</p>
+                        )}
+                      </Space>
+                    ),
+                    icon: (
+                      <Badge count={notifications.length} dot>
+                        <UserOutlined />
+                      </Badge>
+                    ),
+                  },
+                  {
+                    key: "logout",
+                    label: "Deslogar da conta",
+                    icon: <LogoutOutlined />,
+                    onClick: logout,
+                  },
+                ],
+              }}
+              trigger={["click"]}
             >
-              <Badge count={999}>
-                <Avatar shape="square" icon={<UserOutlined />} />
-              </Badge>
-            </Space>
+              <Space size={24} style={{ cursor: "pointer" }}>
+                <Badge count={notifications.length}>
+                  <Avatar shape="square" icon={<UserOutlined />} />
+                </Badge>
+              </Space>
+            </Dropdown>
           </Col>
         </Header>
         <Content

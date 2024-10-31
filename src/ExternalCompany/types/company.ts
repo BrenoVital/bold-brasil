@@ -3,6 +3,6 @@ export type TCompany = {
   companyName: string;
   collaboratorsCount: string;
   isActive: boolean;
-  lastSubmit: string;
+  lastSubmit: string | null;
   createdAt: string;
 };
