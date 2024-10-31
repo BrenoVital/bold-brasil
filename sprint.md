@@ -5,7 +5,7 @@
 - [x] Implementar projeto com micro frontends separados por domínios/contextos de uso, permitindo manutenção independente por diferentes times.
 - [x] Preparar um `README.md` detalhado para que qualquer desenvolvedor consiga subir o projeto, explicando como usar módulos específicos com tecnologias diversas.
 - [x] Adicionar lista no `README.md` com o que foi feito e o que ainda precisa ser implementado (TODO / TASKS), incluindo uma estimativa de tempo para cada tarefa.
-- [ ] Preparar o projeto em contêiner (Docker) para facilitar o deploy em cloud (exemplo: ECS da AWS).
+- [x] Preparar o projeto em contêiner (Docker) para facilitar o deploy em cloud (exemplo: ECS da AWS).
 - [x] Configuração inicial do projeto em React com Vite
 - [x] Separação de micro frontends: Partner, ExternalCompany, e Shared
 - [x] Configuração do roteamento com React Router
@@ -55,8 +55,8 @@
 - [x] Iniciar o projeto com Vite.
 - [ ] Implementar testes unitários.
 - [ ] Implementar testes automatizados.
-- [ ] Realizar deploy do projeto no GitHub Pages.
-- [ ] Realizar deploy do projeto no Vercel.
+- [x] Realizar deploy do projeto no GitHub Pages.
+- [x] Realizar deploy do projeto no Vercel.
 - [ ] Gravar um vídeo de apresentação do projeto e do código-fonte, e compartilhar o link do YouTube.
 
 ## Testes e Verificações

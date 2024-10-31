@@ -9,6 +9,7 @@ Este é o projeto **Bold Brasil**, uma aplicação web desenvolvida com React e 
 - [Introdução](#introdução)
 - [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
+- [Construção container Docker](#construção-container-docker)
 - [Scripts Disponíveis](#scripts-disponíveis)
 - [Dependências](#dependências)
 - [DevDependencies](#devdependencies)
@@ -43,6 +44,23 @@ Bold é uma aplicação web construída com Vite e React, integrando bibliotecas
 3. Instale as dependências:
    ```bash
    npm install ou yarn
+   ```
+
+## Construção Container Docker
+
+Para rodar o projeto em um ambiente Docker, siga as instruções abaixo:
+
+### Requisitos
+
+- **Docker**: Certifique-se de ter o Docker instalado na sua máquina.
+
+### Passo a Passo
+
+1. Construa a imagem Docker:
+
+   ```bash
+   docker build -t bold-brasil .
+   docker run -p 5173:5173 bold-brasil
    ```
 
 ## Scripts Disponíveis
