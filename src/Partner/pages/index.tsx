@@ -7,35 +7,24 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 import TitleHeader from "../../shared/components/TitleHeader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { openNotification } from "../../shared/components/Notifications";
 import { partnerService } from "../services";
 
 export default function Partner() {
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const valueDefault = "1";
+  const [descriptionReduced, setDescriptionReduced] = useState<any>(null);
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
-  const openModal = (record: any) => {
-    setSelectedRecord(record);
-    setIsModalOpen(true);
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedRecord(null);
-  };
   const { data, refetch } = useQuery({
     queryKey: ["partners"],
     queryFn: () => partnerService.getAll(),
   });
-
-  const handleEdit = (id: string) => {
-    navigate(`editar/${id}`);
-  };
 
   const partner = useMutation({
     mutationFn: (id: string) => partnerService.remove(id),
@@ -48,8 +37,30 @@ export default function Partner() {
     },
   });
 
+  const openModal = (record: any) => {
+    setSelectedRecord(record);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRecord(null);
+  };
+
+  const handleEdit = (id: string) => {
+    navigate(`editar/${id}`);
+  };
+
   const handleDelete = (id: string) => {
     partner.mutate(id);
+  };
+
+  const handleDescription = (description: string) => {
+    if (description.length > 20) {
+      setDescriptionReduced(description.slice(0, 20) + "...");
+      return descriptionReduced;
+    }
+    return description;
   };
 
   const columns = [
@@ -67,6 +78,9 @@ export default function Partner() {
       title: "Descrição",
       dataIndex: "description",
       key: "description",
+      render: (description: string) => (
+        <Typography.Text>{handleDescription(description)}</Typography.Text>
+      ),
     },
     {
       title: "Repositório Git",
@@ -128,6 +142,12 @@ export default function Partner() {
     },
   ];
 
+  useEffect(() => {
+    if (!searchParams.get("page")) {
+      setSearchParams({ page: "1" });
+    }
+  }, [searchParams, setSearchParams]);
+
   return (
     <Col span={24}>
       <TitleHeader
@@ -136,7 +156,7 @@ export default function Partner() {
         route="criar"
         titleButon="Cadastrar Parceiro"
       />
-      <CustomTable columns={columns} data={data} valueDefault={valueDefault} />
+      <CustomTable columns={columns} data={data} />
       <Modal
         title="Detalhes do Parceiro"
         open={isModalOpen}

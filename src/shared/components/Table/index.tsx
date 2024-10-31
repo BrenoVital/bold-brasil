@@ -1,25 +1,28 @@
 import { Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 interface ITableProps {
   columns: any;
   data: any;
-  valueDefault?: string;
 }
 
-export default function CustomTable({
-  columns,
-  data,
-  valueDefault,
-}: ITableProps) {
+export default function CustomTable({ columns, data }: ITableProps) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   useEffect(() => {
-    if (valueDefault) {
-      setSearchParams({ ...searchParams, page: valueDefault });
+    const pageFromParams = Number(searchParams.get("page")) || 1;
+    if (pageFromParams !== currentPage) {
+      setCurrentPage(pageFromParams);
     }
-  }, [valueDefault]);
+  }, [searchParams, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setSearchParams({ page: page.toString() });
+  };
 
   return (
     <Table
@@ -28,7 +31,11 @@ export default function CustomTable({
       footer={() => "Total de registros 10"}
       columns={columns}
       dataSource={data}
-      pagination={{ pageSize: 10 }}
+      pagination={{
+        pageSize: 10,
+        current: currentPage,
+        onChange: handlePageChange,
+      }}
     />
   );
 }

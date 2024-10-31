@@ -1,24 +1,23 @@
 import { Button, Col, Dropdown, Popconfirm } from "antd";
 import TitleHeader from "../../shared/components/TitleHeader";
 import CustomTable from "../../shared/components/Table";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { openNotification } from "../../shared/components/Notifications";
 import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { companyService } from "../services";
+import { useEffect } from "react";
 
 export default function ExternalCompany() {
   const navigate = useNavigate();
-  const valueDefault = "1";
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { data, refetch } = useQuery({
     queryKey: ["company"],
     queryFn: () => companyService.getAll(),
   });
-  const handleEdit = (id: string) => {
-    navigate(`editar/${id}`);
-  };
+
   const company = useMutation({
     mutationFn: (id: string) => companyService.remove(id),
     onSuccess() {
@@ -30,9 +29,19 @@ export default function ExternalCompany() {
     },
   });
 
+  const handleEdit = (id: string) => {
+    navigate(`editar/${id}`);
+  };
+
   const handleDelete = (id: string) => {
     company.mutate(id);
   };
+
+  useEffect(() => {
+    if (!searchParams.get("page")) {
+      setSearchParams({ page: "1" });
+    }
+  }, [searchParams, setSearchParams]);
 
   const columns = [
     {
@@ -113,7 +122,7 @@ export default function ExternalCompany() {
         route="criar"
         titleButon="Cadastrar Empresa"
       />
-      <CustomTable columns={columns} data={data} valueDefault={valueDefault} />
+      <CustomTable columns={columns} data={data} />
     </Col>
   );
 }
