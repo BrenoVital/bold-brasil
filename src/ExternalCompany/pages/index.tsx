@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, Popconfirm } from "antd";
+import { Button, Col, Dropdown, Popconfirm, Typography } from "antd";
 import TitleHeader from "../../shared/components/TitleHeader";
 import CustomTable from "../../shared/components/Table";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -7,12 +7,12 @@ import { openNotification } from "../../shared/components/Notifications";
 import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { companyService } from "../services";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ExternalCompany() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [descriptionReduced, setDescriptionReduced] = useState<any>(null);
   const { data, refetch } = useQuery({
     queryKey: ["company"],
     queryFn: () => companyService.getAll(),
@@ -37,6 +37,14 @@ export default function ExternalCompany() {
     company.mutate(id);
   };
 
+  const handleDescription = (description: string) => {
+    if (description.length > 20) {
+      setDescriptionReduced(description.slice(0, 20) + "...");
+      return descriptionReduced;
+    }
+    return description;
+  };
+
   useEffect(() => {
     if (!searchParams.get("page")) {
       setSearchParams({ page: "1" });
@@ -53,11 +61,15 @@ export default function ExternalCompany() {
       title: "Nome empresa",
       dataIndex: "companyName",
       key: "companyName",
+      render: (companyName: string) => (
+        <Typography.Text>{handleDescription(companyName)}</Typography.Text>
+      ),
     },
     {
       title: "Ativa",
       dataIndex: "isActive",
       key: "isActive",
+      render: (isActive: boolean) => (isActive ? "Sim" : "Não"),
     },
     {
       title: "Colaboradores",

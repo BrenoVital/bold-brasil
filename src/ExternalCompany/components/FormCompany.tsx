@@ -88,6 +88,7 @@ export default function FormCompany({ form }: ICompanyForm) {
                 type="text"
                 min={1}
                 value={field.value}
+                required
                 onChange={(e) => {
                   const value = e.target.value;
                   if (

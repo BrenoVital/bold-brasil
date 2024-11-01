@@ -54,9 +54,9 @@ export default function PartnerForm({ form }: IPartnerForm) {
               <Input
                 count={{
                   show: true,
-                  max: 20,
+                  max: 80,
                 }}
-                maxLength={20}
+                maxLength={80}
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Digite o nome"
