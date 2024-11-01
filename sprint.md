@@ -29,7 +29,7 @@
 - [x] Opção de "Manter conectado" (salvar usuário no cookie, caso selecionado; caso contrário, usar local storage).
 - [x] Criação do store de autenticação com Zustand (com mock) = senha default "senhaSegura"
 - [x] Redirecionamento para tela principal após login bem-sucedido
-- [x] Redirecionamento automático para a tela de login caso não esteja autenticado
+- [x] Redirecionamento automático para a tela de login caso não esteja autenticado.
 
 ### Página Inicial
 
