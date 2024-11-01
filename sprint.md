@@ -46,8 +46,8 @@
 
 ### Compartilhamento de Dados
 
-- [ ] Implementar mecanismo para compartilhar o link da página com a páginação atual.
-- [ ] Redirecionar para a páginação específica ao abrir o link, se o usuário estiver logado.
+- [x] Implementar mecanismo para compartilhar o link da página com a páginação atual.
+- [x] Redirecionar para a páginação específica ao abrir o link, se o usuário estiver logado.
 - [ ] Se o usuário não estiver logado, redirecionar para a página de login e, após o login, redirecionar para a páginação compartilhada.
 
 ## Entrega Diferenciada (Opcional)
